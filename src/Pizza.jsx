@@ -2,18 +2,16 @@ import React from "react";
 
 const Pizza = ({ pizzas }) => {
   return (
-    <div>
-      {pizzas.map((pizza) => (
-        <div className="pizza">
-          <img src={pizza.photoName} alt={pizza.name} />
-          <div>
-            <h3>{pizza.name}</h3>
-            <p>{pizza.ingredients}</p>
-            <span>{pizza.price}</span>
-          </div>
+    <li className={`pizza ${pizzas.soldOut ? "sold-out" : ""}`}>
+      <div>
+        <img src={pizzas.photoName} alt={pizzas.name} />
+        <div>
+          <h3>{pizzas.name}</h3>
+          <p>{pizzas.ingredients}</p>
+          <span>{pizzas.soldOut ? "SOLD OUT" : pizzas.price}</span>
         </div>
-      ))}
-    </div>
+      </div>
+    </li>
   );
 };
 
