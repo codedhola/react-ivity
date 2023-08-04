@@ -15,7 +15,6 @@ const Form = ({ onAddItems }) => {
     onAddItems(newItem);
     setDescription("");
     setSelector(1);
-    console.log(newItem);
   }
 
   return (
