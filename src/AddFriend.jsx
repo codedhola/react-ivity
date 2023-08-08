@@ -17,7 +17,6 @@ const AddFriend = ({ onAddFriend }) => {
       balance: 0,
     };
     onAddFriend(newFriend);
-    console.log(newFriend);
     setname("");
     setimage("https://i.pravatar.cc/48");
   }
