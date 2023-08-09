@@ -1,17 +1,16 @@
 import { useState } from "react";
-import { tempMovieData, tempWatchedData } from "./assets/data";
+import { tempMovieData } from "./assets/data";
 import NavBar from "./NavBar";
 import MainPage from "./MainPage";
 
 export default function App() {
-  const [watched, setWatched] = useState(tempWatchedData);
   const [movies, setMovies] = useState(tempMovieData);
 
   return (
     <>
       <NavBar movies={movies} />
 
-      <MainPage movies={movies} watched={watched} />
+      <MainPage movies={movies} />
 
       {/* <main className="main">
         <Box setIsOpen={setIsOpen1} isOpen={isOpen1} movies={movies}>
