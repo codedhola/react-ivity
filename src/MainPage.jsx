@@ -19,11 +19,15 @@ const MainPage = ({ movies, setMovies }) => {
         const res = await fetch(
           `https://www.omdbapi.com/?apikey=${api__key}&s=thor`
         );
-        const data = await res.json();
-        if (!res.ok)
+        if (!res.ok) {
           throw new Error(
             "An Error Occured while fetching your data, please try again..."
           );
+        }
+        const data = await res.json();
+
+        if (!data.Search) throw new Error("Couldn't Search your result");
+
         setMovies(data.Search);
         setIsLoading(false);
       } catch (e) {
@@ -40,7 +44,7 @@ const MainPage = ({ movies, setMovies }) => {
         {isLoading ? (
           <Loader />
         ) : error ? (
-          <ErrorMsg message={"An Error Occured fetching your data"} />
+          <ErrorMsg message={error} />
         ) : (
           <MovieList movies={movies} />
         )}
