@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from "react";
 
-const NavBar = ({ movies }) => {
+const NavBar = ({ movies, query, setQuery }) => {
   return (
     <nav className="nav-bar">
       <Logo />
-      <SearchBar />
+      <SearchBar query={query} setQuery={setQuery} />
       <MovieLength movies={movies} />
     </nav>
   );
@@ -20,8 +20,7 @@ function Logo() {
   );
 }
 
-function SearchBar() {
-  const [query, setQuery] = useState("");
+function SearchBar({ query, setQuery }) {
   return (
     <input
       className="search"

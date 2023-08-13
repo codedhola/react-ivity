@@ -5,38 +5,48 @@ import MovieList from "./MovieList";
 import WatchLists from "./WatchLists";
 import Loader from "./Loader";
 import ErrorMsg from "./ErrorMsg";
+import SelectedMovie from "./SelectedMovie";
 
 const api__key = "70d8d442";
-const MainPage = ({ movies, setMovies }) => {
+const MainPage = ({ movies, setMovies, query, setQuery }) => {
   const [watched, setWatched] = useState(tempWatchedData);
   const [isLoading, setIsLoading] = useState(false);
   const [error, SetError] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState("");
 
-  useEffect(function () {
-    async function fetchMovies() {
-      try {
-        setIsLoading(true);
-        const res = await fetch(
-          `https://www.omdbapi.com/?apikey=${api__key}&s=thor`
-        );
-        if (!res.ok) {
-          throw new Error(
-            "An Error Occured while fetching your data, please try again..."
-          );
+  useEffect(
+    function () {
+      async function fetchMovies() {
+        if (query.length <= 3) {
+          SetError("");
+          return;
         }
-        const data = await res.json();
+        try {
+          SetError("");
+          setIsLoading(true);
+          const res = await fetch(
+            `https://www.omdbapi.com/?apikey=${api__key}&s=${query}`
+          );
+          if (!res.ok) {
+            throw new Error(
+              "An Error Occured while fetching your data, please try again..."
+            );
+          }
+          const data = await res.json();
 
-        if (!data.Search) throw new Error("Couldn't Search your result");
+          if (!data.Search) throw new Error("Couldn't Search your result");
 
-        setMovies(data.Search);
-        setIsLoading(false);
-      } catch (e) {
-        SetError(e.message);
-        setIsLoading(false);
+          setMovies(data.Search);
+          setIsLoading(false);
+        } catch (e) {
+          SetError(e.message);
+          setIsLoading(false);
+        }
       }
-    }
-    fetchMovies();
-  }, []);
+      fetchMovies();
+    },
+    [query]
+  );
 
   return (
     <main className="main">
@@ -46,12 +56,16 @@ const MainPage = ({ movies, setMovies }) => {
         ) : error ? (
           <ErrorMsg message={error} />
         ) : (
-          <MovieList movies={movies} />
+          <MovieList movies={movies} setSelectedMovie={setSelectedMovie} />
         )}
       </Box>
 
       <Box>
-        <WatchLists watched={watched} />
+        {selectedMovie ? (
+          <SelectedMovie />
+        ) : (
+          <WatchLists watched={watched} movies={movies} />
+        )}
       </Box>
     </main>
   );

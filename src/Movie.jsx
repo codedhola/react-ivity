@@ -1,8 +1,12 @@
 import React from "react";
 
-const Movie = ({ movie }) => {
+function handleViewMovie(movie, setMovie) {
+  setMovie((movies) => (movies.length ? "" : movie));
+}
+
+const Movie = ({ movie, setSelectedMovie }) => {
   return (
-    <li>
+    <li onClick={() => handleViewMovie(movie.imdbID, setSelectedMovie)}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>

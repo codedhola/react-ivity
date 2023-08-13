@@ -1,5 +1,6 @@
 import React from "react";
-import Movie from "./Movie";
+// import Movie from "./Movie";
+import WatchedMovie from "./WatchedMovie";
 
 const WatchLists = ({ watched }) => {
   const average = (arr) =>
@@ -35,7 +36,7 @@ const WatchLists = ({ watched }) => {
 
       <ul className="list">
         {watched.map((movie) => (
-          <Movie movie={movie} key={movie.imdbID} />
+          <WatchedMovie movie={movie} key={movie.imdbID} />
         ))}
       </ul>
     </>
