@@ -7,7 +7,7 @@ const WatchLists = ({ watched }) => {
     arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
-  const avgUserRating = average(watched.map((movie) => movie.userRating));
+  const avgUserRating = average(watched.map((movie) => movie.imdbRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
 
   return (
@@ -36,7 +36,7 @@ const WatchLists = ({ watched }) => {
 
       <ul className="list">
         {watched.map((movie) => (
-          <WatchedMovie movie={movie} key={movie.imdbID} />
+          <WatchedMovie movie={movie} key={movie.imdbId} />
         ))}
       </ul>
     </>

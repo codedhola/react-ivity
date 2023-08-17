@@ -5,7 +5,7 @@ import MainPage from "./MainPage";
 
 export default function App() {
   const [movies, setMovies] = useState([]);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("thor");
 
   return (
     <>

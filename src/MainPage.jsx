@@ -5,19 +5,30 @@ import MovieList from "./MovieList";
 import WatchLists from "./WatchLists";
 import Loader from "./Loader";
 import ErrorMsg from "./ErrorMsg";
-import SelectedMovie from "./SelectedMovie";
+import SelectedMovieTemp from "./SelectedMovie";
 
 const api__key = "70d8d442";
 const MainPage = ({ movies, setMovies, query, setQuery }) => {
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, SetError] = useState("");
   const [selectedMovie, setSelectedMovie] = useState("");
+
+  // console.log(selectedMovie);
+
+  function onAddWatched(add) {
+    setWatched((added) => [...added, add]);
+  }
+
+  function handleCloseMovie() {
+    setSelectedMovie(null);
+  }
 
   useEffect(
     function () {
       async function fetchMovies() {
         if (query.length <= 3) {
+          setMovies([]);
           SetError("");
           return;
         }
@@ -62,7 +73,12 @@ const MainPage = ({ movies, setMovies, query, setQuery }) => {
 
       <Box>
         {selectedMovie ? (
-          <SelectedMovie />
+          <SelectedMovieTemp
+            selectedMovie={selectedMovie}
+            setSelectedMovie={setSelectedMovie}
+            setWatched={onAddWatched}
+            onCloseMovie={handleCloseMovie}
+          />
         ) : (
           <WatchLists watched={watched} movies={movies} />
         )}

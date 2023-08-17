@@ -1,7 +1,7 @@
 import React from "react";
 
 function handleViewMovie(movie, setMovie) {
-  setMovie((movies) => (movies.length ? "" : movie));
+  setMovie((selectedId) => (movie === selectedId ? null : movie));
 }
 
 const Movie = ({ movie, setSelectedMovie }) => {
