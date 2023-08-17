@@ -24,6 +24,10 @@ const MainPage = ({ movies, setMovies, query, setQuery }) => {
     setSelectedMovie(null);
   }
 
+  function handleDeleteMovie(id) {
+    setWatched((watched) => watched.filter((movie) => movie.imdbId !== id));
+  }
+
   useEffect(
     function () {
       async function fetchMovies() {
@@ -78,9 +82,14 @@ const MainPage = ({ movies, setMovies, query, setQuery }) => {
             setSelectedMovie={setSelectedMovie}
             setWatched={onAddWatched}
             onCloseMovie={handleCloseMovie}
+            watched={watched}
           />
         ) : (
-          <WatchLists watched={watched} movies={movies} />
+          <WatchLists
+            watched={watched}
+            movies={movies}
+            onDeleteMovie={handleDeleteMovie}
+          />
         )}
       </Box>
     </main>

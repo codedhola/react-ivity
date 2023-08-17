@@ -7,9 +7,12 @@ const SelectedMovieTemp = ({
   setSelectedMovie,
   setWatched,
   onCloseMovie,
+  watched,
 }) => {
   const [movie, setMovie] = useState({});
+  const [starRater, setStarRater] = useState(null);
 
+  const isWatched = watched.filter((el) => el.imdbId === selectedMovie);
   function handleAdd() {
     const addWatch = {
       imdbId: selectedMovie,
@@ -18,7 +21,7 @@ const SelectedMovieTemp = ({
       year: movie.Year,
       poster: movie.Poster,
       runtime: Number(movie.Runtime.split(" ").at(0)),
-      // userRating,
+      userRating: starRater,
     };
     setWatched(addWatch);
     onCloseMovie();
@@ -69,12 +72,18 @@ const SelectedMovieTemp = ({
         </div>
       </header>
       <section>
-        <div className="rating">
-          <StarRating maxRating={10} size={24} />
-          <button className="btn-add" onClick={handleAdd}>
-            + Add to list
-          </button>
-        </div>
+        {isWatched.length > 0 ? (
+          <p>You Have rated this movie</p>
+        ) : (
+          <div className="rating">
+            <StarRating maxRating={10} size={24} onSetRating={setStarRater} />
+            {starRater && (
+              <button className="btn-add" onClick={handleAdd}>
+                + Add to list
+              </button>
+            )}
+          </div>
+        )}
         {/* <div className="rating">
           {!isWatched ? (
             <>

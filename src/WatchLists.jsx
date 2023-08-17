@@ -2,12 +2,12 @@ import React from "react";
 // import Movie from "./Movie";
 import WatchedMovie from "./WatchedMovie";
 
-const WatchLists = ({ watched }) => {
+const WatchLists = ({ watched, onDeleteMovie }) => {
   const average = (arr) =>
     arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
-  const avgUserRating = average(watched.map((movie) => movie.imdbRating));
+  const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
 
   return (
@@ -36,7 +36,11 @@ const WatchLists = ({ watched }) => {
 
       <ul className="list">
         {watched.map((movie) => (
-          <WatchedMovie movie={movie} key={movie.imdbId} />
+          <WatchedMovie
+            movie={movie}
+            onDeleteWatched={onDeleteMovie}
+            key={movie.imdbId}
+          />
         ))}
       </ul>
     </>
