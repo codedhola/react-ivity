@@ -52,6 +52,19 @@ const SelectedMovieTemp = ({
     [selectedMovie]
   );
 
+  useEffect(
+    function () {
+      if (!movie.Title) return;
+      console.log(movie.Title);
+      document.title = `Movie | ${movie.Title}`;
+
+      return function () {
+        document.title = "UsePopcorn";
+      };
+    },
+    [movie.Title]
+  );
+
   return (
     <div className="details">
       <header>
@@ -73,7 +86,9 @@ const SelectedMovieTemp = ({
       </header>
       <section>
         {isWatched.length > 0 ? (
-          <p>You Have rated this movie</p>
+          <div className="rating">
+            <p>You Have rated this movie</p>
+          </div>
         ) : (
           <div className="rating">
             <StarRating maxRating={10} size={24} onSetRating={setStarRater} />
