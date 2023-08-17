@@ -62,6 +62,7 @@ const MainPage = ({ movies, setMovies, query, setQuery }) => {
           setIsLoading(false);
         }
       }
+      handleCloseMovie();
       fetchMovies();
       return function () {
         controller.abort();

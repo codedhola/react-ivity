@@ -59,8 +59,6 @@ const SelectedMovieTemp = ({
           const data = await res.json();
           setMovie(data);
         } catch (e) {
-          // SetError(e.message);
-          // setIsLoading(false);
           console.log(e);
         }
       }
@@ -72,7 +70,6 @@ const SelectedMovieTemp = ({
   useEffect(
     function () {
       if (!movie.Title) return;
-      console.log(movie.Title);
       document.title = `Movie | ${movie.Title}`;
 
       return function () {
@@ -116,33 +113,12 @@ const SelectedMovieTemp = ({
             )}
           </div>
         )}
-        {/* <div className="rating">
-          {!isWatched ? (
-            <>
-              <StarRating
-                maxRating={10}
-                size={24}
-                onSetRating={setUserRating}
-              />
-              {userRating > 0 && (
-                <button className="btn-add" onClick={handleAdd}>
-                  + Add to list
-                </button>
-              )}
-            </>
-          ) : (
-            <p>
-              You rated with movie {watchedUserRating} <span>⭐️</span>
-            </p>
-          )}
-        </div> */}
         <p>
           <em>{movie.Plot}</em>
         </p>
         <p>Starring {movie.Actors}</p>
         <p>Directed by {movie.Director}</p>
       </section>
-      SelectedMovie - {selectedMovie}{" "}
     </div>
   );
 };
