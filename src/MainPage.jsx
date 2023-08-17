@@ -56,7 +56,7 @@ const MainPage = ({ movies, setMovies, query, setQuery }) => {
           setMovies(data.Search);
           setIsLoading(false);
         } catch (e) {
-          if (err.name !== "AbortError") {
+          if (e.name !== "AbortError") {
             SetError(e.message);
           }
           setIsLoading(false);
