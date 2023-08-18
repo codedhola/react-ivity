@@ -9,10 +9,13 @@ import SelectedMovieTemp from "./SelectedMovie";
 
 const api__key = "70d8d442";
 const MainPage = ({ movies, setMovies, query, setQuery }) => {
-  const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, SetError] = useState("");
   const [selectedMovie, setSelectedMovie] = useState("");
+  const [watched, setWatched] = useState(function () {
+    const storedValue = localStorage.getItem("watched");
+    return JSON.parse(storedValue);
+  });
 
   // console.log(selectedMovie);
 
@@ -27,6 +30,13 @@ const MainPage = ({ movies, setMovies, query, setQuery }) => {
   function handleDeleteMovie(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbId !== id));
   }
+
+  useEffect(
+    function () {
+      localStorage.setItem("watched", JSON.stringify(watched));
+    },
+    [watched]
+  );
 
   useEffect(
     function () {
