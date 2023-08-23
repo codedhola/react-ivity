@@ -7,10 +7,8 @@ import Loader from "./Loader";
 import ErrorMsg from "./ErrorMsg";
 import SelectedMovieTemp from "./SelectedMovie";
 
-const api__key = "70d8d442";
-const MainPage = ({ movies, setMovies, query, setQuery }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, SetError] = useState("");
+
+const MainPage = ({ movies, setMovies, query, setQuery, isLoading, error }) => {
   const [selectedMovie, setSelectedMovie] = useState("");
   const [watched, setWatched] = useState(function () {
     const storedValue = localStorage.getItem("watched");
@@ -38,48 +36,7 @@ const MainPage = ({ movies, setMovies, query, setQuery }) => {
     [watched]
   );
 
-  useEffect(
-    function () {
-      const controller = new AbortController();
-      async function fetchMovies() {
-        if (query.length <= 3) {
-          setMovies([]);
-          SetError("");
-          return;
-        }
-        try {
-          SetError("");
-          setIsLoading(true);
-          const res = await fetch(
-            `https://www.omdbapi.com/?apikey=${api__key}&s=${query}`,
-            { signal: controller.signal }
-          );
-          if (!res.ok) {
-            throw new Error(
-              "An Error Occured while fetching your data, please try again..."
-            );
-          }
-          const data = await res.json();
-
-          if (!data.Search) throw new Error("Couldn't Search your result");
-
-          setMovies(data.Search);
-          setIsLoading(false);
-        } catch (e) {
-          if (e.name !== "AbortError") {
-            SetError(e.message);
-          }
-          setIsLoading(false);
-        }
-      }
-      handleCloseMovie();
-      fetchMovies();
-      return function () {
-        controller.abort();
-      };
-    },
-    [query]
-  );
+  
 
   return (
     <main className="main">
