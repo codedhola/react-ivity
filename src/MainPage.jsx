@@ -5,48 +5,24 @@ import MovieList from "./MovieList";
 import WatchLists from "./WatchLists";
 import Loader from "./Loader";
 import ErrorMsg from "./ErrorMsg";
-import SelectedMovie from "./SelectedMovie";
+import SelectedMovieTemp from "./SelectedMovie";
+import { useLocalStorage } from "./useLocalStorage";
 
-const api__key = "70d8d442";
-const MainPage = ({ movies, setMovies, query, setQuery }) => {
-  const [watched, setWatched] = useState(tempWatchedData);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, SetError] = useState("");
+const MainPage = ({ movies, setMovies, query, setQuery, isLoading, error }) => {
   const [selectedMovie, setSelectedMovie] = useState("");
+  const [watched, setWatched] = useLocalStorage([], "watched");
 
-  useEffect(
-    function () {
-      async function fetchMovies() {
-        if (query.length <= 3) {
-          SetError("");
-          return;
-        }
-        try {
-          SetError("");
-          setIsLoading(true);
-          const res = await fetch(
-            `https://www.omdbapi.com/?apikey=${api__key}&s=${query}`
-          );
-          if (!res.ok) {
-            throw new Error(
-              "An Error Occured while fetching your data, please try again..."
-            );
-          }
-          const data = await res.json();
+  function onAddWatched(add) {
+    setWatched((added) => [...added, add]);
+  }
 
-          if (!data.Search) throw new Error("Couldn't Search your result");
+  function handleCloseMovie() {
+    setSelectedMovie(null);
+  }
 
-          setMovies(data.Search);
-          setIsLoading(false);
-        } catch (e) {
-          SetError(e.message);
-          setIsLoading(false);
-        }
-      }
-      fetchMovies();
-    },
-    [query]
-  );
+  function handleDeleteMovie(id) {
+    setWatched((watched) => watched.filter((movie) => movie.imdbId !== id));
+  }
 
   return (
     <main className="main">
@@ -62,9 +38,19 @@ const MainPage = ({ movies, setMovies, query, setQuery }) => {
 
       <Box>
         {selectedMovie ? (
-          <SelectedMovie />
+          <SelectedMovieTemp
+            selectedMovie={selectedMovie}
+            setSelectedMovie={setSelectedMovie}
+            setWatched={onAddWatched}
+            onCloseMovie={handleCloseMovie}
+            watched={watched}
+          />
         ) : (
-          <WatchLists watched={watched} movies={movies} />
+          <WatchLists
+            watched={watched}
+            movies={movies}
+            onDeleteMovie={handleDeleteMovie}
+          />
         )}
       </Box>
     </main>
