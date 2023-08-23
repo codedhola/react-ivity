@@ -5,7 +5,6 @@ import { useKey } from "./useKey";
 const api__key = "70d8d442";
 const SelectedMovieTemp = ({
   selectedMovie,
-  setSelectedMovie,
   setWatched,
   onCloseMovie,
   watched,
@@ -27,7 +26,7 @@ const SelectedMovieTemp = ({
     setWatched(addWatch);
     onCloseMovie();
   }
-  
+
   useKey("Escape", onCloseMovie)
 
   useEffect(

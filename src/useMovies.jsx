@@ -10,11 +10,6 @@ export function useMovies(query) {
     function () {
       const controller = new AbortController();
       async function fetchMovies() {
-        // if (query.length <= 3) {
-        //   setMovies([]);
-        //   SetError("");
-        //   return;
-        // }
         try {
           SetError("");
           setIsLoading(true);

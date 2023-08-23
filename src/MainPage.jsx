@@ -12,8 +12,6 @@ const MainPage = ({ movies, setMovies, query, setQuery, isLoading, error }) => {
   const [selectedMovie, setSelectedMovie] = useState("");
   const [watched, setWatched] = useLocalStorage([], "watched");
 
-  // console.log(selectedMovie);
-
   function onAddWatched(add) {
     setWatched((added) => [...added, add]);
   }
