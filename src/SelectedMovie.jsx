@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import StarRating from "./StarRating";
+import { useKey } from "./useKey";
 
 const api__key = "70d8d442";
 const SelectedMovieTemp = ({
@@ -26,23 +27,8 @@ const SelectedMovieTemp = ({
     setWatched(addWatch);
     onCloseMovie();
   }
-
-  useEffect(
-    function () {
-      function callback(e) {
-        if (e.code === "Escape") {
-          onCloseMovie();
-        }
-      }
-
-      document.addEventListener("keydown", callback);
-
-      return function () {
-        document.removeEventListener("keydown", callback);
-      };
-    },
-    [onCloseMovie]
-  );
+  
+  useKey("Escape", onCloseMovie)
 
   useEffect(
     function () {

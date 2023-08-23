@@ -8,10 +8,9 @@ import ErrorMsg from "./ErrorMsg";
 import SelectedMovieTemp from "./SelectedMovie";
 import { useLocalStorage } from "./useLocalStorage";
 
-
 const MainPage = ({ movies, setMovies, query, setQuery, isLoading, error }) => {
   const [selectedMovie, setSelectedMovie] = useState("");
-  const [watched, setWatched] = useLocalStorage([], "watched")
+  const [watched, setWatched] = useLocalStorage([], "watched");
 
   // console.log(selectedMovie);
 
@@ -25,7 +24,7 @@ const MainPage = ({ movies, setMovies, query, setQuery, isLoading, error }) => {
 
   function handleDeleteMovie(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbId !== id));
-  }  
+  }
 
   return (
     <main className="main">
