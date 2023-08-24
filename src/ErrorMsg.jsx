@@ -5,7 +5,7 @@ const ErrorMsg = ({ message }) => {
     <p className="error">
       {" "}
       <span>🛑</span>
-      {message}
+      {message} 
     </p>
   );
 };
