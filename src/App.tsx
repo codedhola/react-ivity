@@ -2,6 +2,9 @@ import { useEffect, useReducer } from "react";
 import "./App.css";
 import Content from "./Content";
 import Header from "./Header";
+import Loader from "./Loader";
+import ErrorPage from "./ErrorPage";
+import StartPage from "./StartPage";
 
 const initalState = {
   question: [],
@@ -22,6 +25,8 @@ function reducer(state: typeof initalState, action: ACTION) {
   switch (action.type) {
     case "success":
       return { ...state, question: action.payload, status: "ready" };
+    case "failed":
+      return { ...state, status: "failed" };
 
     default:
       throw new Error("An Error Occured in your reducer function");
@@ -29,13 +34,13 @@ function reducer(state: typeof initalState, action: ACTION) {
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initalState);
+  const [{ question, status }, dispatch] = useReducer(reducer, initalState);
 
   useEffect(function () {
     fetch("http://localhost:8000/questions")
       .then((res) => res.json())
       .then((data) => dispatch({ type: "success", payload: data }))
-      .catch((err) => console.log(err));
+      .catch((err) => dispatch({ type: "failed", payload: err }));
   }, []);
 
   return (
@@ -45,7 +50,9 @@ function App() {
         {/* <DateCounter /> */}
       </div>
       <Content>
-        <h1>hello</h1>
+        {status === "loading" && <Loader />}
+        {status === "failed" && <ErrorPage />}
+        {status === "ready" && <StartPage />}
       </Content>
     </>
   );
