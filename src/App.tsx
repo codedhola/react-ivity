@@ -36,6 +36,8 @@ function reducer(state: typeof initalState, action: ACTION) {
 function App() {
   const [{ question, status }, dispatch] = useReducer(reducer, initalState);
 
+  const totalQuestions = question.length;
+
   useEffect(function () {
     fetch("http://localhost:8000/questions")
       .then((res) => res.json())
@@ -52,7 +54,7 @@ function App() {
       <Content>
         {status === "loading" && <Loader />}
         {status === "failed" && <ErrorPage />}
-        {status === "ready" && <StartPage />}
+        {status === "ready" && <StartPage totalQuestion={totalQuestions} />}
       </Content>
     </>
   );
