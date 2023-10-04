@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import QuestionOptions from "./QuestionOptions";
 
 type Props = {
   question: any;
@@ -10,9 +10,7 @@ const Question = ({ question }: Props) => {
     <div>
       <h2>{question.question}</h2>
       <div className="options">
-        {question.options.map((el: any) => (
-          <button className="btn btn-option">{el}</button>
-        ))}
+        <QuestionOptions question={question} />
       </div>
     </div>
   );
