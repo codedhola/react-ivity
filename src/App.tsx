@@ -10,6 +10,7 @@ import Question from "./Question";
 const initalState = {
   question: [],
   status: "loading",
+  current: 0,
 };
 
 type ACTION =
@@ -36,7 +37,10 @@ function reducer(state: typeof initalState, action: ACTION) {
 }
 
 function App() {
-  const [{ question, status }, dispatch] = useReducer(reducer, initalState);
+  const [{ question, status, current }, dispatch] = useReducer(
+    reducer,
+    initalState
+  );
 
   const totalQuestions = question.length;
 
@@ -59,7 +63,7 @@ function App() {
         {status === "ready" && (
           <StartPage totalQuestion={totalQuestions} dispatch={dispatch} />
         )}
-        {status === "active" && <Question />}
+        {status === "active" && <Question question={question[current]} />}
       </Content>
     </>
   );
