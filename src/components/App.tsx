@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import "./App.css";
+import "../App.css";
 import Content from "./Content";
 import Header from "./Header";
 import Loader from "./Loader";
