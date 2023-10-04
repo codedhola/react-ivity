@@ -5,6 +5,7 @@ import Header from "./Header";
 import Loader from "./Loader";
 import ErrorPage from "./ErrorPage";
 import StartPage from "./StartPage";
+import Question from "./Question";
 
 const initalState = {
   question: [],
@@ -27,7 +28,8 @@ function reducer(state: typeof initalState, action: ACTION) {
       return { ...state, question: action.payload, status: "ready" };
     case "failed":
       return { ...state, status: "failed" };
-
+    case "active":
+      return { ...state, status: "active" };
     default:
       throw new Error("An Error Occured in your reducer function");
   }
@@ -54,7 +56,10 @@ function App() {
       <Content>
         {status === "loading" && <Loader />}
         {status === "failed" && <ErrorPage />}
-        {status === "ready" && <StartPage totalQuestion={totalQuestions} />}
+        {status === "ready" && (
+          <StartPage totalQuestion={totalQuestions} dispatch={dispatch} />
+        )}
+        {status === "active" && <Question />}
       </Content>
     </>
   );
