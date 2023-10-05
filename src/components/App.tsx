@@ -8,9 +8,11 @@ import StartPage from "./StartPage";
 import Question from "./Question";
 
 const initalState = {
-  question: [],
+  questions: [],
   status: "loading",
   current: 0,
+  answer: null,
+  points: 0,
 };
 
 type ACTION =
@@ -23,26 +25,36 @@ type ACTION =
       payload: any;
     };
 
-function reducer(state: typeof initalState, action: ACTION) {
+function reducer(state: any, action: ACTION) {
   switch (action.type) {
     case "success":
-      return { ...state, question: action.payload, status: "ready" };
+      return { ...state, questions: action.payload, status: "ready" };
     case "failed":
       return { ...state, status: "failed" };
     case "active":
       return { ...state, status: "active" };
+    case "newAnswer":
+      const question = state.questions.at(state.index);
+      return {
+        ...state,
+        answer: action.payload,
+        points:
+          action.payload === question.correctOption
+            ? state.points + question.point
+            : state.points,
+      };
     default:
       throw new Error("An Error Occured in your reducer function");
   }
 }
 
 function App() {
-  const [{ question, status, current }, dispatch] = useReducer(
+  const [{ questions, status, current, answer }, dispatch] = useReducer(
     reducer,
     initalState
   );
 
-  const totalQuestions = question.length;
+  const totalQuestions = questions.length;
 
   useEffect(function () {
     fetch("http://localhost:8000/questions")
@@ -63,7 +75,14 @@ function App() {
         {status === "ready" && (
           <StartPage totalQuestion={totalQuestions} dispatch={dispatch} />
         )}
-        {status === "active" && <Question question={question[current]} />}
+        {status === "active" && (
+          <Question
+            question={questions[current]}
+            dispatch={dispatch}
+            answer={answer}
+            status={status}
+          />
+        )}
       </Content>
     </>
   );
