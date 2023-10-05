@@ -6,6 +6,7 @@ import Loader from "./Loader";
 import ErrorPage from "./ErrorPage";
 import StartPage from "./StartPage";
 import Question from "./Question";
+import NextButton from "./NextButton";
 
 const initalState = {
   questions: [],
@@ -43,6 +44,8 @@ function reducer(state: any, action: ACTION) {
             ? state.points + question.point
             : state.points,
       };
+    case "nextQuestion":
+      return { ...state, current: state.index + 1 };
     default:
       throw new Error("An Error Occured in your reducer function");
   }
@@ -76,12 +79,15 @@ function App() {
           <StartPage totalQuestion={totalQuestions} dispatch={dispatch} />
         )}
         {status === "active" && (
-          <Question
-            question={questions[current]}
-            dispatch={dispatch}
-            answer={answer}
-            status={status}
-          />
+          <>
+            <Question
+              question={questions[current]}
+              dispatch={dispatch}
+              answer={answer}
+              status={status}
+            />
+            <NextButton dispatch={dispatch} answer={answer} />
+          </>
         )}
       </Content>
     </>
