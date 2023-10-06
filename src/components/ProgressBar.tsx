@@ -15,7 +15,6 @@ const ProgressBar = ({
   maxPoints,
   answer,
 }: Props) => {
-  console.log(points);
   return (
     <header className="progress">
       <progress max={numQuestion} value={index + Number(answer !== null)} />

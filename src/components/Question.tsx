@@ -8,7 +8,6 @@ type Props = {
 };
 
 const Question = ({ question, dispatch, answer, status }: Props) => {
-  console.log(question);
   return (
     <div>
       <h2>{question.question}</h2>
