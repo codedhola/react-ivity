@@ -7,6 +7,7 @@ import ErrorPage from "./ErrorPage";
 import StartPage from "./StartPage";
 import Question from "./Question";
 import NextButton from "./NextButton";
+import ProgressBar from "./ProgressBar";
 
 const initalState = {
   questions: [],
@@ -41,11 +42,10 @@ function reducer(state: any, action: ACTION) {
         answer: action.payload,
         points:
           action.payload === question.correctOption
-            ? state.points + question.point
+            ? state.points + question.points
             : state.points,
       };
     case "nextQuestion":
-      console.log(state);
       return { ...state, current: state.current + 1, answer: null };
     default:
       throw new Error("An Error Occured in your reducer function");
@@ -53,12 +53,16 @@ function reducer(state: any, action: ACTION) {
 }
 
 function App() {
-  const [{ questions, status, current, answer }, dispatch] = useReducer(
+  const [{ questions, status, current, answer, points }, dispatch] = useReducer(
     reducer,
     initalState
   );
 
   const totalQuestions = questions.length;
+  const maxPoints = questions.reduce(
+    (pre: number, cur: any) => pre + cur.points,
+    0
+  );
 
   useEffect(function () {
     fetch("http://localhost:8000/questions")
@@ -81,6 +85,13 @@ function App() {
         )}
         {status === "active" && (
           <>
+            <ProgressBar
+              index={current}
+              points={Number(points)}
+              numQuestion={totalQuestions}
+              maxPoints={maxPoints}
+              answer={answer}
+            />
             <Question
               question={questions[current]}
               dispatch={dispatch}
