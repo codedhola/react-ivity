@@ -45,7 +45,8 @@ function reducer(state: any, action: ACTION) {
             : state.points,
       };
     case "nextQuestion":
-      return { ...state, current: state.index + 1 };
+      console.log(state);
+      return { ...state, current: state.current + 1, answer: null };
     default:
       throw new Error("An Error Occured in your reducer function");
   }
