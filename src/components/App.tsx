@@ -8,6 +8,7 @@ import StartPage from "./StartPage";
 import Question from "./Question";
 import NextButton from "./NextButton";
 import ProgressBar from "./ProgressBar";
+import FinishedScreen from "./FinishedScreen";
 
 const initalState = {
   questions: [],
@@ -47,6 +48,8 @@ function reducer(state: any, action: ACTION) {
       };
     case "nextQuestion":
       return { ...state, current: state.current + 1, answer: null };
+    case "finished":
+      return { ...state, status: "finished" };
     default:
       throw new Error("An Error Occured in your reducer function");
   }
@@ -98,8 +101,17 @@ function App() {
               answer={answer}
               status={status}
             />
-            <NextButton dispatch={dispatch} answer={answer} />
+            <NextButton
+              dispatch={dispatch}
+              answer={answer}
+              totalQuestion={totalQuestions}
+              current={current}
+            />
           </>
+        )}
+
+        {status === "finished" && (
+          <FinishedScreen points={points} maxPoints={maxPoints} />
         )}
       </Content>
     </>
