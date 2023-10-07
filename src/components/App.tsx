@@ -50,6 +50,8 @@ function reducer(state: any, action: ACTION) {
       return { ...state, current: state.current + 1, answer: null };
     case "finished":
       return { ...state, status: "finished" };
+    case "start":
+      return { ...initalState, status: "ready" };
     default:
       throw new Error("An Error Occured in your reducer function");
   }
@@ -111,7 +113,11 @@ function App() {
         )}
 
         {status === "finished" && (
-          <FinishedScreen points={points} maxPoints={maxPoints} />
+          <FinishedScreen
+            points={points}
+            maxPoints={maxPoints}
+            dispatch={dispatch}
+          />
         )}
       </Content>
     </>
