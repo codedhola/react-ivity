@@ -9,24 +9,34 @@ import Question from "./Question";
 import NextButton from "./NextButton";
 import ProgressBar from "./ProgressBar";
 import FinishedScreen from "./FinishedScreen";
+import Timer from "./Timer";
+import Footer from "./Footer";
 
 const initalState = {
   questions: [],
   status: "loading",
   current: 0,
   answer: null,
+  timeLeft: 200,
   points: 0,
 };
 
-type ACTION =
-  | {
-      type: string;
-      payload: any;
-    }
-  | {
-      type: string;
-      payload: any;
-    };
+type ACTION = {
+  type:
+    | "success"
+    | "failed"
+    | "active"
+    | "newAnswer"
+    | "nextQuestion"
+    | "finished"
+    | "start"
+    | "tick";
+  payload: any;
+};
+// | {
+//     type: string;
+//     payload: any;
+//   };
 
 function reducer(state: any, action: ACTION) {
   switch (action.type) {
@@ -50,18 +60,22 @@ function reducer(state: any, action: ACTION) {
       return { ...state, current: state.current + 1, answer: null };
     case "finished":
       return { ...state, status: "finished" };
+    case "tick":
+      return {
+        ...state,
+        timeLeft: state.timeLeft - 1,
+        status: state.timeLeft == 0 ? "finished" : state.status,
+      };
     case "start":
-      return { ...initalState, status: "ready" };
+      return { ...initalState, status: "ready", questions: state.questions };
     default:
       throw new Error("An Error Occured in your reducer function");
   }
 }
 
 function App() {
-  const [{ questions, status, current, answer, points }, dispatch] = useReducer(
-    reducer,
-    initalState
-  );
+  const [{ questions, status, current, answer, points, timeLeft }, dispatch] =
+    useReducer(reducer, initalState);
 
   const totalQuestions = questions.length;
   const maxPoints = questions.reduce(
@@ -103,12 +117,15 @@ function App() {
               answer={answer}
               status={status}
             />
-            <NextButton
-              dispatch={dispatch}
-              answer={answer}
-              totalQuestion={totalQuestions}
-              current={current}
-            />
+            <Footer>
+              <Timer timeLeft={timeLeft} dispatch={dispatch} />
+              <NextButton
+                dispatch={dispatch}
+                answer={answer}
+                totalQuestion={totalQuestions}
+                current={current}
+              />
+            </Footer>
           </>
         )}
 
