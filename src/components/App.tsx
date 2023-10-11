@@ -12,12 +12,14 @@ import FinishedScreen from "./FinishedScreen";
 import Timer from "./Timer";
 import Footer from "./Footer";
 
+const SECS_PER_QUESTION = 30;
+
 const initalState = {
   questions: [],
   status: "loading",
   current: 0,
   answer: null,
-  timeLeft: 200,
+  timeLeft: null,
   points: 0,
 };
 
@@ -67,7 +69,12 @@ function reducer(state: any, action: ACTION) {
         status: state.timeLeft == 0 ? "finished" : state.status,
       };
     case "start":
-      return { ...initalState, status: "ready", questions: state.questions };
+      return {
+        ...initalState,
+        status: "ready",
+        questions: state.questions,
+        timeLeft: state.questions.length * SECS_PER_QUESTION,
+      };
     default:
       throw new Error("An Error Occured in your reducer function");
   }
