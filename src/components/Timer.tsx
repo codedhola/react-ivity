@@ -8,9 +8,10 @@ type Props = {
 const Timer = ({ dispatch, timeLeft }: Props) => {
   useEffect(
     function () {
-      setInterval(function () {
+      const id = setInterval(function () {
         dispatch({ type: "tick" });
       }, 1000);
+      return () => clearInterval(id);
     },
     [dispatch]
   );
