@@ -9,3 +9,4 @@ projects are branched accordingly
 - Travel packing list
 - state stepper
 - usePopcorn
+- wordwise
