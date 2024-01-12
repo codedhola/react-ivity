@@ -8,14 +8,17 @@ import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./pages/AppLayout";
 import CityList from "./components/CityList";
 import { useEffect, useState } from "react";
+import CountryList from "./components/CountryList";
+import City from "./components/City";
 
 function App() {
   const [cities, setCities] = useState<object>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(function () {
     async function fetchCity() {
       try {
+        setIsLoading(true);
         const res = await fetch("http://localhost:8000/cities");
         const data = await res.json();
         setCities(data);
@@ -44,7 +47,11 @@ function App() {
             path="cities"
             element={<CityList cities={cities} isLoading={isLoading} />}
           />
-          <Route path="country" element={<p>Countries</p>} />
+          <Route path="cities/:id" element={<City />} />
+          <Route
+            path="country"
+            element={<CountryList cities={cities} isLoading={isLoading} />}
+          />
           <Route path="form" element={<p>Form</p>} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
