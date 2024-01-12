@@ -11,10 +11,15 @@ const formatDate = (date: any) =>
   }).format(new Date(date));
 
 const CityItem = ({ city }: Props) => {
-  const { emoji, cityName, date, id } = city;
+  const { emoji, cityName, date, id, position } = city;
+
+  console.log(city);
   return (
     <li>
-      <NavLink to={`${id}`} className={styles.cityItem}>
+      <NavLink
+        to={`${id}?lat=${position.lat}&lng=${position.lng}`}
+        className={styles.cityItem}
+      >
         <span className={styles.emoji}>{emoji}</span>
         <h3 className={styles.name}>{cityName}</h3>
         <time className={styles.date}>{formatDate(date)}</time>
