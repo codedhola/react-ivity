@@ -1,3 +1,4 @@
+import { useCities } from "../context/CitiesContext";
 import CityItem from "./CityItem";
 import styles from "./CityList.module.css";
 import Message from "./Message";
@@ -7,7 +8,8 @@ type Props = {
   isLoading: any;
 };
 
-const CityList = ({ cities, isLoading }: Props) => {
+const CityList = () => {
+  const { isLoading, cities } = useCities();
   if (isLoading) return <Spinner />;
 
   if (!cities.length) return <Message message="add Your cities" />;

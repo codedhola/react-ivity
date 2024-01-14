@@ -2,13 +2,15 @@ import CountryItem from "./CountryItem";
 import styles from "./CityList.module.css";
 import Message from "./Message";
 import Spinner from "./Spinner";
+import { useCities } from "../context/CitiesContext";
 
 type Props = {
   cities: any;
   isLoading: any;
 };
 
-const CountryList = ({ cities, isLoading }: Props) => {
+const CountryList = () => {
+  const { cities, isLoading } = useCities();
   if (isLoading) return <Spinner />;
 
   const countries = cities.reduce((arr: any, city: any) => {

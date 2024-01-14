@@ -3,9 +3,9 @@ import Logo from "./Logo";
 import AppNav from "./AppNav";
 import { Outlet } from "react-router-dom";
 
-type Props = {};
+// type Props = {};
 
-const SideBar = (props: Props) => {
+const SideBar = () => {
   return (
     <div className={style.sidebar}>
       <Logo />

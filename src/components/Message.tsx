@@ -1,6 +1,10 @@
+import { useCities } from "../context/CitiesContext";
 import styles from "./Message.module.css";
 
-function Message({ message }) {
+interface Prop {
+  message: any;
+}
+function Message({ message }: Prop) {
   return (
     <p className={styles.message}>
       <span role="img">👋</span> {message}
