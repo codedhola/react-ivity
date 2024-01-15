@@ -12,6 +12,9 @@ import styles from "./Map.module.css";
 import { useEffect, useState } from "react";
 import { LatLngExpression } from "leaflet";
 import { useCities } from "../context/CitiesContext";
+import { useGeolocation } from "../hooks/useGeolocation";
+import Button from "./Button";
+import { useUrlPosition } from "../hooks/useUrlPosition";
 type Props = {};
 
 const Map = ({}: Props) => {
@@ -21,19 +24,26 @@ const Map = ({}: Props) => {
     51.505, -0.09,
   ]);
 
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
+  const {
+    isLoading: isLoadingPosition,
+    position: geoPosition,
+    getPosition,
+  } = useGeolocation();
+  const [mapLat, mapLng] = useUrlPosition();
 
   // const positionType :LatLngExpression = [lng, lat]
   useEffect(
     function () {
-      if (lat && lng) setMapPosition([Number(lng), Number(lat)]);
+      if (mapLat && mapLng) setMapPosition([Number(mapLng), Number(mapLat)]);
     },
-    [lat, lng]
+    [mapLat, mapLng]
   );
 
   return (
     <div className={`${styles.mapContainer} ${styles.map}`}>
+      <Button type="position" onClick={getPosition}>
+        {isLoadingPosition ? "loading..." : "Use Position"}
+      </Button>
       <MapContainer
         className={`${styles.mapContainer} ${styles.map}`}
         center={mapPosition}
@@ -72,8 +82,13 @@ function DetectClick() {
   const navigate = useNavigate();
 
   useMapEvents({
-    click: (e: any) => navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`),
+    click: (e: any) => {
+      navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`);
+      console.log(e);
+    },
   });
+
+  return null;
 }
 
 export default Map;
