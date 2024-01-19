@@ -12,13 +12,20 @@ const formatDate = (date: any) =>
   }).format(new Date(date));
 
 const CityItem = ({ city }: Props) => {
-  const { currentCity } = useCities();
+  const { currentCity, deletecity } = useCities();
   const { emoji, cityName, date, id, position } = city;
+  // console.log("DATAS => ", emoji, cityName, date, position);
+  const deleteCity = (e: Event, id: any) => {
+    e.preventDefault();
+    console.log(e.target);
+    deletecity(id);
+    console.log(id);
+  };
 
   return (
     <li>
       <NavLink
-        to={`${id}?lat=${position.lat}&lng=${position.lng}`}
+        to={`${id}?lat=${position?.lat}&lng=${position?.lng}`}
         className={`${styles.cityItem} ${
           currentCity.id === id ? styles["cityItem--active"] : ""
         }`}
@@ -26,7 +33,12 @@ const CityItem = ({ city }: Props) => {
         <span className={styles.emoji}>{emoji}</span>
         <h3 className={styles.name}>{cityName}</h3>
         <time className={styles.date}>{formatDate(date)}</time>
-        <button className={styles.deleteBtn}>&times;</button>
+        <button
+          onClick={(e: any) => deleteCity(e, id)}
+          className={styles.deleteBtn}
+        >
+          &times;
+        </button>
       </NavLink>
     </li>
   );

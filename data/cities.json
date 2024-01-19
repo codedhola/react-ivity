@@ -49,16 +49,28 @@
       "id": 17804301
     },
     {
-      "cityName": "Loveth",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2027-02-12T09:24:11.863Z",
-      "notes": "Amazing 😃",
+      "cityName": "London",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "emoji": "🇬🇧",
+      "date": "2024-01-19T18:10:54.549Z",
+      "notes": "enhoyed",
       "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
+        "lat": "51.51029964511599",
+        "lng": "-0.1178748820119835"
       },
-      "id": 93113197
+      "id": 98443198
+    },
+    {
+      "cityName": "Lagos",
+      "country": "Nigeria",
+      "emoji": "🇳🇬",
+      "date": "2024-01-19T18:12:42.338Z",
+      "notes": "my home town",
+      "position": {
+        "lat": "6.506165442741599",
+        "lng": "3.332510709092263"
+      },
+      "id": 98443199
     }
   ]
 }
