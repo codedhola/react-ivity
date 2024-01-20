@@ -1,14 +1,7 @@
-import React from "react";
-import FinishedScreen from "./FinishedScreen";
+import { useData } from "../DataContext";
 
-type Props = {
-  dispatch: any;
-  answer: any;
-  totalQuestion: any;
-  current: any;
-};
-
-const NextButton = ({ dispatch, answer, totalQuestion, current }: Props) => {
+const NextButton = () => {
+  const { answer, totalQuestion, current, dispatch } = useData();
   if (answer === null) return null;
 
   if (current < totalQuestion - 1) {

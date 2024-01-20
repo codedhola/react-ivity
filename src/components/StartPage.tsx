@@ -1,11 +1,7 @@
-import { ReactElement } from "react";
+import { useData } from "../DataContext";
 
-type props = {
-  totalQuestion: ReactElement;
-  dispatch: any;
-};
-
-const StartPage = ({ totalQuestion, dispatch }: props) => {
+const StartPage = () => {
+  const { totalQuestion, dispatch } = useData();
   return (
     <div className="app">
       <h1>Welcome To the best Quiz Ever</h1>

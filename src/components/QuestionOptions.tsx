@@ -1,12 +1,15 @@
-type Props = {
-  question: any;
-  dispatch: any;
-  answer: number;
-  status: any;
-};
+import { useData } from "../DataContext";
 
-const QuestionOptions = ({ question, dispatch, answer, status }: Props) => {
+const QuestionOptions = () => {
+  const { answer, questions, dispatch, current, status } = useData();
   const isAnswered = answer !== null;
+  const question = questions[current];
+  console.log(question);
+
+  const start = (e: any, index: any) => {
+    e.preventDefault();
+    dispatch({ type: "newAnswer", payload: index });
+  };
 
   return (
     <>
@@ -23,7 +26,7 @@ const QuestionOptions = ({ question, dispatch, answer, status }: Props) => {
               : "btn btn-option"
           `}
           key={el}
-          onClick={() => dispatch({ type: "newAnswer", payload: index })}
+          onClick={(e) => start(e, index)}
           disabled={answer !== null}
         >
           {el}

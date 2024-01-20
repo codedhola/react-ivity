@@ -1,12 +1,7 @@
-import React from "react";
+import { useData } from "../DataContext";
 
-type Props = {
-  points: any;
-  maxPoints: any;
-  dispatch: any;
-};
-
-const FinishedScreen = ({ points, maxPoints, dispatch }: Props) => {
+const FinishedScreen = () => {
+  const { points, maxPoints, dispatch } = useData();
   const percentage = (points / maxPoints) * 100;
   return (
     <>

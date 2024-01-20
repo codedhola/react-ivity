@@ -1,20 +1,7 @@
-import React from "react";
+import { useData } from "../DataContext";
 
-type Props = {
-  index: any;
-  numQuestion: any;
-  points: number;
-  maxPoints: number;
-  answer: number | null;
-};
-
-const ProgressBar = ({
-  index,
-  numQuestion,
-  points,
-  maxPoints,
-  answer,
-}: Props) => {
+const ProgressBar = () => {
+  const { numQuestion, answer, maxPoints, points, current: index } = useData();
   return (
     <header className="progress">
       <progress max={numQuestion} value={index + Number(answer !== null)} />

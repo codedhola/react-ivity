@@ -1,11 +1,8 @@
 import { useEffect } from "react";
+import { useData } from "../DataContext";
 
-type Props = {
-  dispatch: any;
-  timeLeft: any;
-};
-
-const Timer = ({ dispatch, timeLeft }: Props) => {
+const Timer = () => {
+  const { timeLeft, dispatch } = useData();
   useEffect(
     function () {
       const id = setInterval(function () {

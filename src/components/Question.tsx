@@ -1,23 +1,13 @@
+import { useData } from "../DataContext";
 import QuestionOptions from "./QuestionOptions";
 
-type Props = {
-  question: any;
-  dispatch: any;
-  answer: number;
-  status: any;
-};
-
-const Question = ({ question, dispatch, answer, status }: Props) => {
+const Question = () => {
+  const { questions, current } = useData();
   return (
     <div>
-      <h2>{question.question}</h2>
+      <h2>{questions[current].question}</h2>
       <div className="options">
-        <QuestionOptions
-          question={question}
-          dispatch={dispatch}
-          answer={answer}
-          status={status}
-        />
+        <QuestionOptions />
       </div>
     </div>
   );
