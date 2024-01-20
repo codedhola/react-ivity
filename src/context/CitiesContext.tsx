@@ -48,6 +48,7 @@ function reducer(state: any, action: any) {
         ...state,
         cities: [...state.cities, action.payload],
         isLoading: false,
+        currentCity: action.payload,
       };
     case "deleted":
       return {
@@ -90,6 +91,7 @@ export function CitiesProvider({ children }: props) {
   }, []);
 
   async function getCity(id: string) {
+    if (Number(id) === currentCity.id) return;
     try {
       dispatch({ type: "loading" });
       const res = await fetch(`http://localhost:8000/cities/${id}`);
@@ -115,7 +117,7 @@ export function CitiesProvider({ children }: props) {
       // console.log(payload);
       const data = await res.json();
       // console.log(data);
-      dispatch({ type: "create", payload: data });
+      dispatch({ type: "created", payload: data });
       // setCities((cities: any) => [data, ...cities]);
     } catch (err: any) {
       dispatch({ type: "rejected", payload: err.message });
@@ -132,7 +134,7 @@ export function CitiesProvider({ children }: props) {
       const data = await res.json();
       console.log(data);
       // setCities((cities: any) => cities.filter((val: any) => val.id !== id));
-      dispatch({ type: "deleted", payload: data });
+      dispatch({ type: "deleted", payload: id });
     } catch (err: any) {
       dispatch({ type: "rejected", payload: err.message });
     }
