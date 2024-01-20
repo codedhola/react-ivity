@@ -4,11 +4,6 @@ import Message from "./Message";
 import Spinner from "./Spinner";
 import { useCities } from "../context/CitiesContext";
 
-type Props = {
-  cities: any;
-  isLoading: any;
-};
-
 const CountryList = () => {
   const { cities, isLoading } = useCities();
   if (isLoading) return <Spinner />;

@@ -1,11 +1,10 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   MapContainer,
   Marker,
   Popup,
   TileLayer,
   useMap,
-  useMapEvent,
   useMapEvents,
 } from "react-leaflet";
 import styles from "./Map.module.css";
@@ -19,16 +18,11 @@ type Props = {};
 
 const Map = ({}: Props) => {
   const { cities } = useCities();
-  const [searchParams, setSearchParams] = useSearchParams();
   const [mapPosition, setMapPosition] = useState<LatLngExpression>([
     51.505, -0.09,
   ]);
 
-  const {
-    isLoading: isLoadingPosition,
-    position: geoPosition,
-    getPosition,
-  } = useGeolocation();
+  const { isLoading: isLoadingPosition, getPosition } = useGeolocation();
   const [mapLat, mapLng] = useUrlPosition();
 
   // const positionType :LatLngExpression = [lng, lat]

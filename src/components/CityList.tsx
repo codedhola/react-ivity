@@ -3,10 +3,6 @@ import CityItem from "./CityItem";
 import styles from "./CityList.module.css";
 import Message from "./Message";
 import Spinner from "./Spinner";
-type Props = {
-  cities: any;
-  isLoading: any;
-};
 
 const CityList = () => {
   const { isLoading, cities } = useCities();

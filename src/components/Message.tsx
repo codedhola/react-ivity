@@ -1,4 +1,3 @@
-import { useCities } from "../context/CitiesContext";
 import styles from "./Message.module.css";
 
 interface Prop {

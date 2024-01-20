@@ -1,20 +1,13 @@
-import { object } from "prop-types";
 import {
   ReactNode,
   createContext,
   useContext,
   useEffect,
   useReducer,
-  useState,
 } from "react";
 
 interface props {
   children: ReactNode;
-}
-
-interface contextProp {
-  cities: any;
-  isLoading: any;
 }
 
 const initialState = {

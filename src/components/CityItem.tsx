@@ -1,4 +1,4 @@
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./CityItem.module.css";
 import { useCities } from "../context/CitiesContext";
 type Props = {
