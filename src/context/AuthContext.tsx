@@ -9,7 +9,7 @@ const initialState = {
 
 const userDetails = {
   email: "hola",
-  password: "coded",
+  password: "***",
   name: "coded hola",
 };
 
